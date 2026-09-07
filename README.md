@@ -355,31 +355,6 @@ libyuv.so.0    -> libyuv.so
 | `Recv failure: Connection was reset` | 服务进程异常退出或底层设备内存失败；查看盒子日志和进程状态，必要时重启服务 |
 | 内网穿透域名可访问但 POST 失败 | 检查是否遗漏动态外网端口、映射是否在线、上传大小限制和平台超时设置 |
 
-## 11. 交付验收清单
-
-- [ ] 设备启动后只有一个 `fire_api.py` 进程。
-- [ ] `GET /api/v1/health` 返回 HTTP 200，且 `data.status` 为 `READY`。
-- [ ] 使用一张有效图片调用分析接口，返回业务码 0。
-- [ ] 分别验证空图片、错误格式、非法 metadata 等错误响应。
-- [ ] 连续请求时未出现模型进程退出或持续设备内存错误。
-- [ ] 若使用内网穿透，外网正式心跳和分析接口均已验证。
-- [ ] 上游保存 eventId、请求耗时、HTTP 状态、业务码和复核结果。
-- [ ] 已确定服务启动方式、日志保存位置和异常重启责任方。
-
-## 12. GitHub 交付注意事项
-
-本手册可以直接提交到项目仓库。模型文件、数据集、缓存、临时图片和评测结果不应随普通 Git 提交；尤其是数 GB 的 `.bmodel` 通常超过 GitHub 单文件限制，应通过设备预装、独立交付介质或约定的模型制品仓库提供，并记录文件校验值。
-
-文中的 `linaro` 为设备交付初始密码，使用方首次登录后应执行 `passwd` 修改密码。确认仓库不包含内网穿透密钥、API Key、个人信息、私有数据集等敏感内容后，可以将仓库设为 Public，供使用方直接 `git clone`。
-
-建议只提交本次交付所需文件：
-
-```bash
-git add EDGE_BOX_OPERATION_GUIDE.md
-git commit -m "docs: add YZ-B032 fire review operation guide"
-git push
-```
-
 提交前请再次执行 `git status`，不要使用 `git add .` 将模型、数据集、缓存或无关修改一并加入提交。
 
 
